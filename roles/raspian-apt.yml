@@ -1,24 +1,3 @@
-- name: Stop automatic suspend
-  ansible.builtin.systemd:
-    state: stopped
-    name: sleep.target
-    masked: yes
-  become: true
-
-- name: Stop automatic suspect
-  ansible.builtin.systemd:
-    state: stopped
-    name: suspend.target
-    masked: yes
-  become: true
-
-- name: Stop automatic suspect
-  ansible.builtin.systemd:
-    state: stopped
-    name: hibernate.target
-    masked: yes
-  become: true
-
 - name: Install latest version of ansible
   ansible.builtin.apt:
     name: ansible
@@ -30,6 +9,7 @@
     name: git
     state: latest
   become: true
+
 
 - name: Install latest version of xrdp
   ansible.builtin.apt:

@@ -3,7 +3,7 @@
 # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html
 #
 - name: Provision new machines
-  hosts: raspian
+  hosts: all
   # remote_user: root
 
   tasks:
@@ -41,7 +41,7 @@
       masked: yes
     become: true
 
-  - name: Set authorized key taken from file
+  - name: Set authorized key
     ansible.posix.authorized_key:
       user: dale
       state: present
