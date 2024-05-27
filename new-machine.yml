@@ -1,0 +1,75 @@
+---
+#
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html
+#
+- name: Provision new machines
+  hosts: raspian
+  # remote_user: root
+
+  tasks:
+  - name: Install/update apt packages
+    include_role:
+      name: raspian-apt.yml
+      tasks_from: raspian-apt.yml
+    when: ansible_distribution == "Debian"
+
+  tasks:
+  - name: Install/update yum packages
+    include_role:
+      name: fedora-yum.yml
+      tasks_from: fedora-yum.yml
+    when: ansible_distribution == "Fedora"
+
+  - name: Stop automatic sleep
+    ansible.builtin.systemd:
+      state: stopped
+      name: sleep.target
+      masked: yes
+    become: true
+
+  - name: Stop automatic suspend
+    ansible.builtin.systemd:
+      state: stopped
+      name: suspend.target
+      masked: yes
+    become: true
+
+  - name: Stop automatic hibernate
+    ansible.builtin.systemd:
+      state: stopped
+      name: hibernate.target
+      masked: yes
+    become: true
+
+  - name: Set authorized key taken from file
+    ansible.posix.authorized_key:
+      user: dale
+      state: present
+      key: "{{ lookup('file', '/home/dale/.ssh/id_rsa.pub') }}"
+
+#  - name: Copy bash dotfiles to user
+#    ansible.builtin.copy:
+#      src: /home/dale/git/files/bash/
+#      dest: /home/dale/tmp/
+#      owner: dale
+#      group: dale
+#
+#  - name: Write the apache config file
+#    ansible.builtin.template:
+#      src: /srv/httpd.j2
+#      dest: /etc/httpd.conf
+#
+#- name: Update db servers
+#  hosts: databases
+#  remote_user: root
+#
+#  tasks:
+#  - name: Ensure postgresql is at the latest version
+#    ansible.builtin.yum:
+#      name: postgresql
+#      state: latest
+#
+#  - name: Ensure that postgresql is started
+#    ansible.builtin.service:
+#      name: postgresql
+#      state: started

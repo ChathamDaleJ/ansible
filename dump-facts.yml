@@ -1,0 +1,15 @@
+---
+#
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html
+#
+- name: Provision new machines
+  hosts: rpi5-11
+  # remote_user: root
+
+  tasks:
+  - name: Dump dacts
+    ansible.builtin.debug:
+      msg: 
+        - "Ansible facts"
+        - "{{ ansible_facts }}"
+
