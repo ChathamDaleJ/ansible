@@ -9,14 +9,13 @@
   tasks:
   - name: Install/update apt packages
     include_role:
-      name: raspian-apt.yml
+      name: provisioning
       tasks_from: raspian-apt.yml
     when: ansible_distribution == "Debian"
 
-  tasks:
   - name: Install/update yum packages
     include_role:
-      name: fedora-yum.yml
+      name: provisioning
       tasks_from: fedora-yum.yml
     when: ansible_distribution == "Fedora"
 
