@@ -1,0 +1,31 @@
+---
+
+- name: copy .bashrc
+  ansible.builtin.copy:
+    src: files/bash/_bashrc
+    dest: /home/dale/.bashrc
+    owner: dale
+    group: dale
+  become: true
+#    dest: "{{ lookup('env', 'HOME') }}/.bshrc"
+
+
+- name: copy .bash_logout
+  ansible.builtin.copy:
+    src: files/bash/_bash_logout
+    dest: /home/dale/.bash_logout
+    owner: dale
+    group: dale
+  become: true
+#    dest: "{{ lookup('env', 'HOME') }}/.bash_logout"
+
+
+- name: copy .bashrc.d
+  ansible.builtin.copy:
+    src: files/bash/_bashrc.d/
+    dest: /home/dale/.bashrc.d/
+    owner: dale
+    group: dale
+  become: true
+#    dest: "{{ lookup('env', 'HOME') }}/.bshrc.d/"
+

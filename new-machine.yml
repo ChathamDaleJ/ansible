@@ -10,13 +10,13 @@
   - name: Install/update apt packages
     include_role:
       name: provisioning
-      tasks_from: raspian-apt.yml
+      tasks_from: raspian-apt
     when: ansible_distribution == "Debian"
 
   - name: Install/update yum packages
     include_role:
       name: provisioning
-      tasks_from: fedora-yum.yml
+      tasks_from: fedora-yum
     when: ansible_distribution == "Fedora"
 
   - name: Stop automatic sleep
@@ -45,6 +45,16 @@
       user: dale
       state: present
       key: "{{ lookup('file', '/home/dale/.ssh/id_rsa.pub') }}"
+
+  - name: Install/update apt packages
+    include_role:
+      name: provisioning
+      tasks_from: bash_dotfiles
+
+#  - name: Install/update apt packages
+#    include_role:
+#      name: provisioning
+#      tasks_from: vim_dotfiles
 
 #  - name: Copy bash dotfiles to user
 #    ansible.builtin.copy:

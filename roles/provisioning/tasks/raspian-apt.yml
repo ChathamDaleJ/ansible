@@ -10,9 +10,20 @@
     state: latest
   become: true
 
-
 - name: Install latest version of xrdp
   ansible.builtin.apt:
     name: xrdp
+    state: latest
+  become: true
+
+- name: Install latest version of vim-enhanced
+  ansible.builtin.apt:
+    name: vim
+    state: latest
+  become: true
+
+- name: Install latest version of vim-X11
+  ansible.builtin.apt:
+    name: vim-X11
     state: latest
   become: true
